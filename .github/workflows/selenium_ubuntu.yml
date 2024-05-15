@@ -59,32 +59,21 @@ jobs:
           echo "${{ secrets.DB_USER_NAME }}"  >> ./src/test/resources/application.yml
           echo "${{ secrets.DB_PASSWORD }}"  >> ./src/test/resources/application.yml
 
-
-
+          
+      - name: read secrets
+        run: |
+          echo "${{ secrets.DB_URL }}" 
+          echo "${{ secrets.DB_USER_NAME }}"
+          echo "${{ secrets.DB_PASSWORD }}"
+          echo "${{ secrets }}"
+          
 
       # !  List of folders before tests
       - name: ✅ 📂 List Directories before tests
-        if: always()
         run: ls -R
-
-      - name: Check file size
-        run: |
-          file_size=$(wc -c < ./src/test/resources/application.yml)
-          if [ $file_size -gt 0 ]; then
-            echo "Secret copied successfully"
-          else
-            echo "Secret not copied"
-          fi
-      
-      
-      
 
       - name: show 1
         run:  cat ./src/test/resources/application.yml
-
-      - name: ✅ 📂 List Directories before tests
-        if: always()
-        run: ls -R
 
       - name: Run tests
         run: |
